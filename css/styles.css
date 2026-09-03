@@ -7,7 +7,7 @@
   --muted: #9aa3ad;
   --laser: #e8ff47;
   --laser-ink: #14180a;
-  --paper: #f7f3ea;
+  --paper: #ffffff;
   --danger: #ff6b6b;
   --ok: #3ee0a0;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
@@ -275,9 +275,16 @@ button:focus-visible {
   color: #111;
   border-radius: 16px;
   min-height: 320px;
+  padding: 16px;
   display: grid;
   place-items: center;
   overflow: hidden;
+}
+
+.preview-frame canvas {
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
 .preview-empty {

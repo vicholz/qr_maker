@@ -77,6 +77,24 @@
                 <input id="wifi-hidden" data-live type="checkbox" />
                 Hidden network
               </label>
+              <div class="row">
+                <label>
+                  WIFI label
+                  <select id="wifi-label-pos" data-live>
+                    <option value="none">Off</option>
+                    <option value="above">Above</option>
+                    <option value="below">Below</option>
+                  </select>
+                </label>
+                <label>
+                  Name and password
+                  <select id="wifi-creds-pos" data-live>
+                    <option value="none">Off</option>
+                    <option value="above">Above</option>
+                    <option value="below">Below</option>
+                  </select>
+                </label>
+              </div>
             </form>
 
             <form class="stack" data-type-form="email" hidden autocomplete="off">
@@ -223,6 +241,7 @@
               <label>
                 Quiet zone
                 <select id="opt-margin" data-live>
+                  <option value="0">None</option>
                   <option value="2">Tight</option>
                   <option value="4" selected>Standard</option>
                   <option value="8">Wide</option>
@@ -239,7 +258,7 @@
                 </label>
                 <label>
                   Background
-                  <input id="opt-bg" data-live type="color" value="#f7f3ea" />
+                  <input id="opt-bg" data-live type="color" value="#ffffff" />
                 </label>
               </div>
             </div>

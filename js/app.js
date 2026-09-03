@@ -42,6 +42,8 @@
     history: $("#scan-history"),
     wifiSecurity: $("#wifi-security"),
     wifiPasswordWrap: $("#wifi-password-wrap"),
+    wifiLabelPos: $("#wifi-label-pos"),
+    wifiCredsPos: $("#wifi-creds-pos"),
   };
 
   let scanner = null;
@@ -136,14 +138,33 @@
     }
   }
 
-  function options() {
-    return {
+  function wifiCaptions(data) {
+    const above = [];
+    const below = [];
+    const add = (position, items) => {
+      if (position === "above") above.push(...items);
+      if (position === "below") below.push(...items);
+    };
+    add(els.wifiLabelPos.value, [{ kind: "label", text: "WIFI" }]);
+    const creds = [];
+    if (String(data.ssid || "").trim()) creds.push({ kind: "ssid", text: String(data.ssid).trim() });
+    if (String(data.password || "").trim()) {
+      creds.push({ kind: "password", text: String(data.password) });
+    }
+    add(els.wifiCredsPos.value, creds);
+    return { above, below };
+  }
+
+  function options(data) {
+    const opts = {
       errorCorrection: els.errorCorrection.value,
       margin: Number(els.margin.value),
       size: Number(els.size.value),
       foreground: els.foreground.value,
       background: els.background.value,
     };
+    if (state.type === "wifi") opts.captions = wifiCaptions(data || collect());
+    return opts;
   }
 
   function clearPreview() {
@@ -202,7 +223,7 @@
       const encoded = QRMaker.encode(state.type, data);
       state.payload = encoded.payload;
       state.filename = encoded.filename;
-      QRMaker.generator.drawCanvas(els.previewCanvas, encoded.payload, options());
+      QRMaker.generator.drawCanvas(els.previewCanvas, encoded.payload, options(data));
       els.previewCanvas.hidden = false;
       els.previewEmpty.hidden = true;
       els.payloadView.textContent = encoded.payload;

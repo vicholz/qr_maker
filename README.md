@@ -35,7 +35,7 @@ Pick a content type and fill the fields. The preview updates as you type.
 | Event | `VEVENT` |
 | WhatsApp | `https://wa.me/…` |
 
-Download PNG or SVG, copy the payload, or copy the image. Error correction, quiet zone, size, and colors are adjustable.
+Download PNG or SVG, copy the payload, or copy the image. Error correction, quiet zone (including none), size, and colors are adjustable. Wi‑Fi codes can print a **WIFI** label and the network name/password above or below the code.
 
 ## Scan
 
