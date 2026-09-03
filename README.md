@@ -1,5 +1,7 @@
 # QR Maker
 
+**Live:** [https://vicholz.github.io/qr_maker/](https://vicholz.github.io/qr_maker/)
+
 A browser-only QR code creator and scanner. No build step, no server, no account.
 
 Create codes for text, URLs, Wi‑Fi, email, phone, SMS, contacts, map pins, calendar events, and WhatsApp. Scan with a camera or by dropping in an image.
