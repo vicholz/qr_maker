@@ -1,0 +1,9 @@
+Third-party libraries (vendored, no build step required):
+
+qrcode-generator 1.4.4
+  https://github.com/kazuhikoarase/qrcode-generator
+  License: MIT
+
+jsQR 1.4.0
+  https://github.com/cozmo/jsQR
+  License: Apache-2.0

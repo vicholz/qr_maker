@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>QR Maker</title>
+    <meta name="description" content="Create and scan QR codes for text, Wi-Fi, contacts, and more in the browser." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="wordmark">
+          <strong>QR Maker</strong>
+          <span>Create and scan QR codes in the browser. No account, no upload.</span>
+        </div>
+        <div class="mode-switch" role="tablist" aria-label="Mode">
+          <button type="button" role="tab" data-mode="create" aria-selected="true" class="is-active">Create</button>
+          <button type="button" role="tab" data-mode="scan" aria-selected="false">Scan</button>
+        </div>
+      </header>
+
+      <p class="status" id="status" role="status"></p>
+
+      <section data-panel="create" aria-label="Create QR code">
+        <div class="panel">
+          <div class="card">
+            <h2>Content</h2>
+            <div class="type-grid" role="radiogroup" aria-label="QR content type">
+              <button type="button" class="type-chip is-active" data-type="text">Text</button>
+              <button type="button" class="type-chip" data-type="url">URL</button>
+              <button type="button" class="type-chip" data-type="wifi">Wi‑Fi</button>
+              <button type="button" class="type-chip" data-type="email">Email</button>
+              <button type="button" class="type-chip" data-type="phone">Phone</button>
+              <button type="button" class="type-chip" data-type="sms">SMS</button>
+              <button type="button" class="type-chip" data-type="contact">Contact</button>
+              <button type="button" class="type-chip" data-type="location">Location</button>
+              <button type="button" class="type-chip" data-type="event">Event</button>
+              <button type="button" class="type-chip" data-type="whatsapp">WhatsApp</button>
+            </div>
+
+            <form class="stack" data-type-form="text" autocomplete="off">
+              <label>
+                Message
+                <textarea id="text-body" data-live rows="6" placeholder="Type anything you want in the QR code"></textarea>
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="url" hidden autocomplete="off">
+              <label>
+                Website
+                <input id="url-value" data-live type="url" placeholder="https://example.com" />
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="wifi" hidden autocomplete="off">
+              <label>
+                Network name (SSID)
+                <input id="wifi-ssid" data-live type="text" placeholder="Home Wi-Fi" />
+              </label>
+              <div class="row">
+                <label>
+                  Security
+                  <select id="wifi-security" data-live>
+                    <option value="WPA">WPA / WPA2 / WPA3</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">Open (no password)</option>
+                  </select>
+                </label>
+                <label id="wifi-password-wrap">
+                  Password
+                  <input id="wifi-password" data-live type="text" placeholder="Network password" />
+                </label>
+              </div>
+              <label class="check">
+                <input id="wifi-hidden" data-live type="checkbox" />
+                Hidden network
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="email" hidden autocomplete="off">
+              <label>
+                To
+                <input id="email-to" data-live type="email" placeholder="hello@example.com" />
+              </label>
+              <label>
+                Subject
+                <input id="email-subject" data-live type="text" />
+              </label>
+              <label>
+                Body
+                <textarea id="email-body" data-live rows="4"></textarea>
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="phone" hidden autocomplete="off">
+              <label>
+                Phone number
+                <input id="phone-number" data-live type="tel" placeholder="+1 555 0100" />
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="sms" hidden autocomplete="off">
+              <label>
+                Phone number
+                <input id="sms-number" data-live type="tel" placeholder="+1 555 0100" />
+              </label>
+              <label>
+                Message
+                <textarea id="sms-body" data-live rows="4"></textarea>
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="contact" hidden autocomplete="off">
+              <div class="row">
+                <label>
+                  First name
+                  <input id="contact-first" data-live type="text" />
+                </label>
+                <label>
+                  Last name
+                  <input id="contact-last" data-live type="text" />
+                </label>
+              </div>
+              <div class="row">
+                <label>
+                  Organization
+                  <input id="contact-org" data-live type="text" />
+                </label>
+                <label>
+                  Title
+                  <input id="contact-title" data-live type="text" />
+                </label>
+              </div>
+              <div class="row">
+                <label>
+                  Phone
+                  <input id="contact-phone" data-live type="tel" />
+                </label>
+                <label>
+                  Email
+                  <input id="contact-email" data-live type="email" />
+                </label>
+              </div>
+              <label>
+                Website
+                <input id="contact-url" data-live type="url" placeholder="https://" />
+              </label>
+              <label>
+                Address
+                <input id="contact-address" data-live type="text" />
+              </label>
+              <label>
+                Note
+                <textarea id="contact-note" data-live rows="3"></textarea>
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="location" hidden autocomplete="off">
+              <div class="row">
+                <label>
+                  Latitude
+                  <input id="loc-lat" data-live type="number" step="any" placeholder="37.7749" />
+                </label>
+                <label>
+                  Longitude
+                  <input id="loc-lng" data-live type="number" step="any" placeholder="-122.4194" />
+                </label>
+              </div>
+              <label>
+                Label (optional)
+                <input id="loc-query" data-live type="text" placeholder="Cafe on the corner" />
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="event" hidden autocomplete="off">
+              <label>
+                Title
+                <input id="event-title" data-live type="text" />
+              </label>
+              <label>
+                Location
+                <input id="event-location" data-live type="text" />
+              </label>
+              <div class="row">
+                <label>
+                  Starts
+                  <input id="event-start" data-live type="datetime-local" />
+                </label>
+                <label>
+                  Ends
+                  <input id="event-end" data-live type="datetime-local" />
+                </label>
+              </div>
+              <label>
+                Description
+                <textarea id="event-desc" data-live rows="3"></textarea>
+              </label>
+            </form>
+
+            <form class="stack" data-type-form="whatsapp" hidden autocomplete="off">
+              <label>
+                Number with country code
+                <input id="wa-number" data-live type="tel" placeholder="15550100" />
+              </label>
+              <label>
+                Prefill message
+                <textarea id="wa-message" data-live rows="4"></textarea>
+              </label>
+            </form>
+
+            <div class="options">
+              <label>
+                Error correction
+                <select id="opt-ecc" data-live>
+                  <option value="L">L — 7%</option>
+                  <option value="M" selected>M — 15%</option>
+                  <option value="Q">Q — 25%</option>
+                  <option value="H">H — 30%</option>
+                </select>
+              </label>
+              <label>
+                Quiet zone
+                <select id="opt-margin" data-live>
+                  <option value="2">Tight</option>
+                  <option value="4" selected>Standard</option>
+                  <option value="8">Wide</option>
+                </select>
+              </label>
+              <label class="span-2">
+                Size <span id="opt-size-value">320 px</span>
+                <input id="opt-size" data-live type="range" min="160" max="720" step="16" value="320" />
+              </label>
+              <div class="row span-2">
+                <label>
+                  Foreground
+                  <input id="opt-fg" data-live type="color" value="#0b0d10" />
+                </label>
+                <label>
+                  Background
+                  <input id="opt-bg" data-live type="color" value="#f7f3ea" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <aside class="card preview-card">
+            <h2>Preview</h2>
+            <div class="preview-frame">
+              <p class="preview-empty" id="preview-empty">Fill in a field to generate a live QR code.</p>
+              <canvas id="preview-canvas" width="320" height="320" hidden></canvas>
+            </div>
+            <pre class="payload-view" id="payload-view">Payload will appear here.</pre>
+            <div id="payload-count">0 characters</div>
+            <div class="actions">
+              <button type="button" class="btn btn-primary js-needs-payload" id="download-png" disabled>Download PNG</button>
+              <button type="button" class="btn js-needs-payload" id="download-svg" disabled>Download SVG</button>
+              <button type="button" class="btn js-needs-payload" id="copy-payload" disabled>Copy payload</button>
+              <button type="button" class="btn js-needs-payload" id="copy-image" disabled>Copy image</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section data-panel="scan" hidden aria-label="Scan QR code">
+        <div class="panel">
+          <div class="card">
+            <h2>Camera</h2>
+            <div class="scan-stage" id="scan-stage">
+              <video id="scan-video" muted playsinline></video>
+              <div class="viewfinder" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="actions">
+              <label class="sr-only" for="camera-select">Camera</label>
+              <select id="camera-select" hidden></select>
+              <button type="button" class="btn btn-primary" id="start-camera">Start camera</button>
+              <button type="button" class="btn" id="stop-camera" disabled>Stop</button>
+            </div>
+            <div class="drop-zone" id="drop-zone">
+              Drop an image here or
+              <label class="text-link">
+                choose a file
+                <input id="scan-file" class="sr-only" type="file" accept="image/*" />
+              </label>
+            </div>
+          </div>
+
+          <aside class="scan-side">
+            <div class="card" id="scan-result" hidden></div>
+            <div class="card">
+              <h2>This session</h2>
+              <div id="scan-history"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
+
+    <script src="vendor/qrcode-generator.min.js"></script>
+    <script src="vendor/jsQR.js"></script>
+    <script src="js/payloads.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/generator.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
