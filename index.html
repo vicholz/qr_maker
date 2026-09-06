@@ -14,6 +14,7 @@
         <div class="wordmark">
           <strong>QR Maker</strong>
           <span>Create and scan QR codes in the browser. No account, no upload.</span>
+          <p class="app-version" id="app-version" hidden></p>
         </div>
         <div class="mode-switch" role="tablist" aria-label="Mode">
           <button type="button" role="tab" data-mode="create" aria-selected="true" class="is-active">Create</button>
@@ -325,5 +326,39 @@
     <script src="js/generator.js"></script>
     <script src="js/scanner.js"></script>
     <script src="js/app.js"></script>
+    <script>
+      const APP_REPO = "vicholz/qr_maker";
+      const APP_VERSION_FALLBACK_SHA = "c307bbcbc36636240c98cac50054846f6965c669";
+
+      function renderAppVersion(sha) {
+        const el = document.querySelector("#app-version");
+        if (!el || !sha) return;
+        el.replaceChildren();
+        el.append("Version ");
+        const a = document.createElement("a");
+        a.href = "https://github.com/" + APP_REPO + "/commit/" + sha;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = sha.slice(0, 7);
+        a.title = "View the diff for this version";
+        el.appendChild(a);
+        el.hidden = false;
+      }
+
+      function loadAppVersion() {
+        renderAppVersion(APP_VERSION_FALLBACK_SHA);
+        fetch("https://api.github.com/repos/" + APP_REPO + "/commits/main")
+          .then(function (res) {
+            if (!res.ok) throw new Error(res.status);
+            return res.json();
+          })
+          .then(function (commit) {
+            if (commit.sha) renderAppVersion(commit.sha);
+          })
+          .catch(function () {});
+      }
+
+      loadAppVersion();
+    </script>
   </body>
 </html>

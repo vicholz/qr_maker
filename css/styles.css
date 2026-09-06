@@ -98,6 +98,24 @@ a {
   font-size: 0.95rem;
 }
 
+.app-version {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+.app-version a {
+  color: inherit;
+  font-family: var(--mono);
+  text-underline-offset: 2px;
+}
+
+.app-version a:hover {
+  color: var(--laser);
+}
+
 .mode-switch {
   display: flex;
   padding: 4px;
